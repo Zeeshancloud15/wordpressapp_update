@@ -1,0 +1,11 @@
+version: '3.1'
+services:
+wordpress:
+build: .
+ports:
+- "8081:80"
+mysql:
+image: mysql:5.7
+environment:
+MYSQL_ROOT_PASSWORD: pass
+---
