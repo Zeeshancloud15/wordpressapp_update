@@ -1,0 +1,6 @@
+- hosts: kubernetes
+tasks:
+- name: Apply service
+command: kubectl apply -f kubernetes-service.yaml
+- name: Deploy blue
+command: kubectl apply -f kubernetes-deployment-blue.yaml
