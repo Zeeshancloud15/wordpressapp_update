@@ -52,7 +52,21 @@ pipeline {
                     sh """
                         export KUBECONFIG=$KUBECONFIG_PATH
 
-                        # Update the deployment image using your Kubernetes YAML
+                        # Update the deployment image
                         kubectl set image deployment/wordpressapp-deployment wordpressapp=$ECR_REG/$REPO_NAME:$IMAGE_TAG -n $KUBE_NAMESPACE --record
                         kubectl rollout status deployment/wordpressapp-deployment -n $KUBE_NAMESPACE
                     """
+                }
+            }
+        }
+    }
+
+    post {
+        success {
+            echo "✅ Build, push to ECR, and deploy to EKS successful!"
+        }
+        failure {
+            echo "❌ Pipeline failed! Check the logs for errors."
+        }
+    }
+}  // <-- Make sure this final closing bracket exists
